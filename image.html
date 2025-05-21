@@ -1,7 +1,221 @@
-<html>
-    <head>
-        <body>
-            <img src="a.png" style="border-style: dotted;">
-        </body>
-    </head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Moving Animated Peacock Card</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #e0f7fa, #ffe0b2);
+            position: relative;
+        }
+
+        /* === Animated Blobs === */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.6;
+            animation: moveBlobs 20s infinite alternate ease-in-out;
+        }
+
+        .blob1 {
+            width: 400px;
+            height: 400px;
+            background: #80deea;
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .blob2 {
+            width: 350px;
+            height: 350px;
+            background: #ffab91;
+            bottom: -80px;
+            right: -120px;
+            animation-delay: 5s;
+        }
+
+        @keyframes moveBlobs {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 60px) scale(1.2); }
+        }
+
+        /* === Moving Card === */
+        .card-container {
+            animation: floatCard 12s ease-in-out infinite alternate, fadeIn 1.5s ease forwards;
+            position: relative;
+            z-index: 10;
+            perspective: 1000px; /* Added perspective for 3D tilt */
+        }
+
+        @keyframes floatCard {
+            0%   { transform: translate(0px, 0px); }
+            25%  { transform: translate(60px, -30px); }
+            50%  { transform: translate(120px, 20px); }
+            75%  { transform: translate(60px, 40px); }
+            100% { transform: translate(0px, 0px); }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            width: 320px;
+            background: linear-gradient(135deg, #ffffff, #e0f7fa);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1), 0 0 15px rgba(0, 150, 136, 0.3);
+            overflow: hidden;
+            cursor: pointer;
+            transition: box-shadow 0.4s ease;
+            transform-style: preserve-3d; /* Enable 3D transform */
+        }
+
+        .card:hover {
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.2), 0 0 30px rgba(0, 150, 136, 0.5);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 150, 136, 0.07), transparent 70%);
+            animation: rotateBg 6s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes rotateBg {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-bottom: 1px solid #eee;
+            z-index: 2;
+            position: relative;
+            border-radius: 20px 20px 0 0;
+            backface-visibility: hidden;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+            text-align: center;
+            backface-visibility: hidden;
+        }
+
+        .card-title {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: #004d40;
+            margin-bottom: 15px;
+            animation: fadeInDown 0.6s ease-in-out;
+        }
+
+        .card-description {
+            font-size: 1em;
+            font-weight: 500;
+            color: #333;
+            line-height: 1.5;
+            animation: fadeInUp 0.6s ease-in-out;
+            margin-bottom: 20px;
+        }
+
+        .card-button {
+            display: inline-block;
+            padding: 10px 25px;
+            background: #00796b;
+            color: white;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0, 121, 107, 0.4);
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card-button:hover {
+            background: #004d40;
+            box-shadow: 0 8px 20px rgba(0, 77, 64, 0.6);
+        }
+
+        @keyframes fadeInDown {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+    <script>
+        // 3D tilt effect on card based on mouse movement
+        const cardContainer = document.querySelector('.card-container');
+        const card = document.querySelector('.card');
+
+        cardContainer.addEventListener('mousemove', (e) => {
+            const rect = cardContainer.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const deltaX = (x - centerX) / centerX;
+            const deltaY = (y - centerY) / centerY;
+            const rotateX = deltaY * 10;
+            const rotateY = deltaX * 10;
+            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        cardContainer.addEventListener('mouseleave', () => {
+            card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+        });
+    </script>
+</head>
+<body>
+
+    <!-- Background Blobs -->
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+
+    <!-- Moving Card -->
+    <div class="card-container">
+        <div class="card">
+            <img src="peacock.png" alt="A beautiful peacock">
+            <div class="card-content">
+                <a href="peacock.png" download class="card-button" style="margin-bottom: 15px;">Download Image</a>
+                <h2 class="card-title">Majestic Peacock</h2>
+                <p class="card-description">
+                    The peacock dazzles with vibrant plumage and graceful form, symbolizing beauty and elegance in nature.
+                </p>
+            </div>
+        </div>
+    </div>
+
+        <a href="#" class="card-button">Learn More</a>
+    </div>
+</div>
+
+</body>
 </html>
