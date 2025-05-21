@@ -1,0 +1,10 @@
+<html>
+    <head>
+    </head>
+    <body bgcolor="black">
+        <h1 style="color:yellow; text-decoration: underline;">Muskan</h1>
+        <h1 style="color:yellow;border-left:10px solid red;">n</h1>
+        <h1 style="color: navy; border:10px; border-right:10px solid green;width:fit-content;">Muskan</h1>
+        <h1 style="color: navy; border:10px;border-top:10px solid red(0,85,128);width:fit-content;">Muskan</h1>
+        </body>
+</html>

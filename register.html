@@ -1,0 +1,92 @@
+<html>
+    <head>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
+            body {
+                margin: 0;
+                height: 100vh;
+                background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fad0c4, #ff9a9e);
+                background-size: 400% 400%;
+                animation: gradientBG 15s ease infinite;
+                font-family: 'Comic Neue', cursive, sans-serif;
+            }
+            @keyframes gradientBG {
+                0% {
+                    background-position: 0% 50%;
+                }
+                50% {
+                    background-position: 100% 50%;
+                }
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
+            .container {
+                max-width: 600px;
+                margin: 50px auto;
+                background-color: rgba(255, 255, 255, 0.85);
+                border-radius: 25px;
+                padding: 30px;
+                box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+                text-align: center;
+            }
+            h1 {
+                color: #ff6f91;
+                font-size: 3rem;
+                margin-bottom: 20px;
+            }
+            label {
+                display: block;
+                font-size: 1.5rem;
+                color: #ff6f91;
+                margin: 15px 0 5px;
+            }
+            input[type="text"],
+            input[type="email"],
+            input[type="password"] {
+                width: 80%;
+                padding: 12px;
+                border-radius: 15px;
+                border: 2px solid #ff6f91;
+                font-size: 1.2rem;
+                outline: none;
+                transition: border-color 0.3s ease;
+            }
+            input[type="text"]:focus,
+            input[type="email"]:focus,
+            input[type="password"]:focus {
+                border-color: #ff3b6f;
+            }
+            input[type="submit"] {
+                margin-top: 25px;
+                padding: 15px 40px;
+                font-size: 1.5rem;
+                color: white;
+                background-color: #ff6f91;
+                border: none;
+                border-radius: 25px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+            input[type="submit"]:hover {
+                background-color: #ff3b6f;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Registration Form &#128221;&#128100;</h1>
+            <form action="">
+                <label for="name">Name &#128100;</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email &#9993;</label>
+                <input type="email" id="email" name="email" required>
+                <label for="password">Password &#128274;</label>
+                <input type="password" id="password" name="password" required>
+                <label for="confirm_password">Confirm Password &#128274;</label>
+                <input type="password" id="confirm_password" name="confirm_password" required>
+                <input type="submit" value="Submit &#10148;">
+            </form>
+        </div>
+    </body>
+</html>
